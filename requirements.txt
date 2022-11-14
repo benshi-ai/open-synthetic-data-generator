@@ -1,0 +1,9 @@
+requests~=2.27.1
+psycopg2~=2.9.2
+faker~=9.5.2
+PyYAML~=6.0
+pytest~=7.1.2
+SQLAlchemy~=1.4.31
+alembic~=1.7.5
+pytest-mock==3.7.0
+rfc3339==6.2

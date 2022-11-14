@@ -1,0 +1,15 @@
+[Unit]
+Description=Synthetic data generator for demo_aede
+After=network.target
+
+[Service]
+Type=simple
+User=synthetic
+WorkingDirectory=$HOME/synthetic-data-generator/src/synthetic
+ExecStart=bash $HOME/synthetic-data/service/start.sh demo_aede
+Restart=on-failure
+TimeoutSec=120
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

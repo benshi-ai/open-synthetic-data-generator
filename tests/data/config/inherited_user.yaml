@@ -1,0 +1,37 @@
+global:
+  organisation: "demo"
+  project: "project"
+  start_ts: "2001-01-01 00:00:00"
+  end_ts: null
+  api_key: "a very secret key"
+
+users:
+  population:
+    initial_count: 200
+
+    target_min_count: 100
+    target_max_count: 300
+    volatility: 0.05
+
+  profiles:
+    default:
+      session_length_max_seconds: 1800
+      occurrence_probability: 0.1
+
+      event_probabilities:
+        page:  0.7
+        video:  0.0
+
+    simple:
+
+      occurrence_probability: 0.05
+
+      session_engagement:
+        initial_min: 0.05
+        initial_max: 0.1
+
+        change_probability: 1.0
+        boost_probability: 0.0
+        decay_probability: 0.9
+        change_min: 1.0
+        change_max: 1.0

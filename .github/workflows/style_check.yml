@@ -1,0 +1,29 @@
+name: Style Checks
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-lint
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Clone Repo
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Lint (flake8)
+        uses: ./.github/actions/lint
+        with:
+          path: ./src
+      - name: Black formatter
+        uses: psf/black@stable
+        with:
+          src: ./src

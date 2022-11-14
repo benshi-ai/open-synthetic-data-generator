@@ -1,0 +1,30 @@
+name: Unit Tests
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repo
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - uses: actions/cache@v2
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('dev-requirements.txt') }}
+      - name: Installing wheel
+        run: pip install --upgrade pip wheel
+      - name: Installing requirements
+        run: pip install -r requirements.txt
+      # Reinstall etl package to make sure it's not got from cache
+      - name: Reinstalling package
+        run: pip install --upgrade --force-reinstall -e .
+      - name: install pytest
+        run: pip install pytest
+      - name: Run tests
+        run: PYTHONPATH=$PYTHONPATH:./src pytest ./tests

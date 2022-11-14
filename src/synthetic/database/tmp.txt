@@ -1,0 +1,1 @@
+/home/riaan/.pyenv/versions/benshi/bin/python: can't open file 'synthetic_data.py': [Errno 2] No such file or directory

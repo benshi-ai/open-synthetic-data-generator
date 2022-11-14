@@ -1,0 +1,19 @@
+[tool.black]
+line-length = 120  # Specify the line length
+target-version = ['py38', 'py39']  # Specify your Python version
+skip-string-normalization = true
+include = '\.pyi?$'
+extend-exclude = '''  # Specify the files/dirs that should be ignored by the black formatter
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''

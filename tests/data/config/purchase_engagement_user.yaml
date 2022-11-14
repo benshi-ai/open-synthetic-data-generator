@@ -1,0 +1,77 @@
+global:
+  sink_types: ["csv"]
+
+  api_key: "a very secret key"
+
+  db_uri: "sqlite:///:memory:"
+
+  organisation: "demo"
+  project: "demo"
+
+  log_events_filename: "/tmp/ingest.csv"
+  catalog_events_filename: "/tmp/ingest_catalog.csv"
+
+  start_ts: "2020-01-01 00:00:00"
+  end_ts: "2020-02-01 00:00:00"
+
+catalogs:
+  default:
+    target_count: 10
+  drug:
+    target_count: 50
+
+users:
+  max_session_length_minutes: 60
+
+  population:
+    initial_count: 200
+
+    target_min_count: 100
+    target_max_count: 300
+    volatility: 0.05
+
+  profiles:
+    default:
+      user_type: "purchase_engagement"
+      behaviour:
+        purchase:
+          interest_catalog_range_min: 0.2
+          interest_catalog_range_max: 0.3
+          interest_per_item_min: 0.1
+          interest_per_item_max: 0.2
+
+          catalog_type_probabilities:
+            oxygen: 1.0
+
+    one_time:
+      occurrence_probability: 0.6
+
+      session_engagement:
+        initial_min: 0.05
+        initial_max: 0.1
+
+        change_probability: 1.0
+        boost_probability: 0.0
+        decay_probability: 0.9
+        change_min: 1.0
+        change_max: 1.0
+
+      purchase_engagement:
+        initial_min: 0.05
+        initial_max: 0.1
+
+        change_probability: 1.0
+        boost_probability: 0.0
+        decay_probability: 0.9
+        change_min: 1.0
+        change_max: 1.0
+
+    short:
+      user_type: "session_engagement"
+      behaviour:
+        purchase:
+          interest_catalog_range_min: 0.8
+          interest_catalog_range_max: 0.9
+
+          catalog_type_probabilities:
+            blood: 1.0

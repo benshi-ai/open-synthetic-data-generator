@@ -1,0 +1,146 @@
+global:
+  sink_types: [ "csv" ]
+
+  api_key: "a very secret key"
+
+  db_uri: "sqlite:///:memory:"
+
+  organisation: "demo"
+  project: "demo"
+
+  log_events_filename: "/tmp/ingest.csv"
+  catalog_events_filename: "/tmp/ingest_catalog.csv"
+
+  start_ts: "2020-01-01 00:00:00"
+  end_ts: "2020-02-01 00:00:00"
+
+catalogs:
+  default:
+    target_count: 10
+  module:
+    target_count: 20
+    properties:
+      length_min_seconds: 60
+      length_max_seconds: 120
+
+users:
+  max_session_length_minutes: 60
+
+  population:
+    initial_count: 200
+
+    target_min_count: 100
+    target_max_count: 300
+    volatility: 0.05
+
+    resurrection_probability: 0.05
+    inactive_nudge_check_ratio_per_hour: 0.05
+
+  profiles:
+    default:
+      product_user_type: "mobile"
+      background_per_minute_probability: 0.05
+      events:
+        page:
+          properties:
+            page_count_per_session_min: 1
+            page_count_per_session_max: 5
+            page_view_duration_variance: 0.1
+        video:
+          properties:
+            pause_probability: 0.3
+
+      nudges:
+        checks_per_day_min: 2
+        checks_per_day_max: 3
+
+    one_time:
+      user_type: "session_engagement"
+      occurrence_probability: 0.6
+
+      session_engagement:
+        initial_min: 0.05
+        initial_max: 0.1
+
+        change_probability: 1.0
+        boost_probability: 0.0
+        decay_probability: 0.9
+        change_min: 1.0
+        change_max: 1.0
+
+      event_probabilities:
+        page: 0.5
+        video: 0.25
+        audio: 0.05
+        image: 0.05
+        module: 0.1
+
+      nudges:
+        checks_per_day_min: 1
+
+        response_probabilities:
+          open: 0.5
+          block: 0.25
+
+        engagement_effect:
+          change_probability: 1.0
+          boost_probability: 0.75
+          decay_probability: 0.25
+          change_min: 0.05
+          change_max: 0.2
+
+    short:
+      user_type: "session_engagement"
+      occurrence_probability: 0.2
+
+      session_engagement:
+        initial_min: 0.1
+        initial_max: 0.3
+
+        change_probability: 0.75
+        boost_probability: 0.05
+        decay_probability: 0.95
+        change_min: 0.25
+        change_max: 0.5
+
+    average:
+      user_type: "session_engagement"
+      occurrence_probability: 0.1
+
+      session_engagement:
+        initial_min: 0.3
+        initial_max: 0.7
+
+        change_probability: 0.5
+        boost_probability: 0.2
+        decay_probability: 0.8
+        change_min: 0.1
+        change_max: 0.2
+
+    long:
+      user_type: "session_engagement"
+      occurrence_probability: 0.08
+
+      session_engagement:
+        initial_min: 0.7
+        initial_max: 0.9
+
+        change_probability: 0.25
+        boost_probability: 0.4
+        decay_probability: 0.6
+        change_min: 0.025
+        change_max: 0.05
+
+    loyal:
+      user_type: "session_engagement"
+      occurrence_probability: 0.02
+
+      session_engagement:
+        initial_min: 0.9
+        initial_max: 1.0
+
+        change_probability: 0.1
+        boost_probability: 0.45
+        decay_probability: 0.55
+        change_min: 0.01
+        change_max: 0.02

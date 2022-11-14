@@ -1,0 +1,144 @@
+global:
+  sink_types: [ "csv" ]
+
+  db_uri: "sqlite:////tmp/synthetic-data-generator.sqlite"
+
+  organisation: "example"
+  project: "project"
+
+  log_events_filename: "/tmp/ingest.csv"
+  catalog_events_filename: "/tmp/ingest_catalog.csv"
+
+  start_ts: "2020-01-01 00:00:00"
+  end_ts: "2020-01-15 00:00:00"
+
+  randomise_registration_times: true
+  manage_population_counts_per_profile: true
+
+catalogs:
+  default:
+    target_count: 200
+
+users:
+  max_session_length_minutes: 60
+
+  population:
+    initial_count: 75
+
+    target_min_count: 50
+    target_max_count: 100
+    volatility: 0.1
+
+  profiles:
+    default:
+      user_type: "purchase_engagement"
+
+      session_engagement_count_factor: 1.0
+      session_engagement_duration_factor: 1.0
+      session_hourly_start_probabilities: [ 0.1, 0.1, 0.15, 0.15, 0.2, 0.2, 0.25, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.25, 0.2, 0.2, 0.15, 0.15, 0.1, 0.1 ]
+      session_engagement:
+        initial_min: 0.5
+        initial_max: 0.5
+
+      purchase_engagement:
+        initial_min: 0.1
+        initial_max: 1.0
+
+        change_probability: 0.5
+        boost_probability: 0.5
+        decay_probability: 0.5
+        change_min: 0.01
+        change_max: 0.1
+
+      behaviour:
+        normal_event_probability: 0.5
+        purchase:
+          interest_catalog_range_min: 0.005
+          interest_catalog_range_max: 0.1
+          interest_per_item_min: 0.05
+          interest_per_item_max: 0.25
+
+          views_required_per_purchase_min: 2
+          views_required_per_purchase_max: 25
+          views_per_session_min: 1
+          views_per_session_max: 10
+
+          purchase_count_per_item_min: 1
+          purchase_count_per_item_max: 3
+
+      events:
+        page:
+          properties:
+            page_count_per_session_min: 1
+            page_count_per_session_max: 5
+            page_view_duration_variance: 0.1
+        video:
+          properties:
+            pause_probability: 0.3
+
+      event_probabilities:
+        page: 0.5
+        video: 0.25
+        audio: 0.1
+        image: 0.05
+        module: 0.1
+
+    one_time:
+      occurrence_probability: 0.6
+      session_min_count: 1
+      session_max_count: 2
+
+      session_engagement:
+        change_probability: 0.9
+        boost_probability: 0.0
+        decay_probability: 0.9
+        change_min: 0.5
+        change_max: 1.0
+
+    short:
+      occurrence_probability: 0.2
+      session_min_count: 1
+      session_max_count: 3
+
+      session_engagement:
+        change_probability: 0.6
+        boost_probability: 0.2
+        decay_probability: 0.8
+        change_min: 0.1
+        change_max: 0.2
+
+    average:
+      occurrence_probability: 0.14
+      session_min_count: 1
+      session_max_count: 5
+
+      session_engagement:
+        change_probability: 0.5
+        boost_probability: 0.35
+        decay_probability: 0.65
+        change_min: 0.05
+        change_max: 0.15
+
+    long:
+      occurrence_probability: 0.04
+      session_min_count: 1
+      session_max_count: 5
+
+      session_engagement:
+        change_probability: 0.25
+        boost_probability: 0.45
+        decay_probability: 0.55
+        change_min: 0.02
+        change_max: 0.1
+
+    loyal:
+      occurrence_probability: 0.02
+      session_min_count: 1
+      session_max_count: 10
+
+      session_engagement:
+        change_probability: 0.1
+        boost_probability: 0.45
+        decay_probability: 0.55
+        change_min: 0.01
+        change_max: 0.05
